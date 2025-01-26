@@ -1,19 +1,23 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 import React from 'react';
 import { router, Stack } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useForm, Controller } from 'react-hook-form';
-import Icon from 'react-native-vector-icons/FontAwesome';
 import images from '@/constants/Images';
 import CustomTextInput from '@/components/ui/CustomTextInput';
 import CustomButton from '@/components/ui/CustomButton';
 import BackArrow from '@/components/ui/BackArrow';
+import { useDispatch } from 'react-redux';
+import { setPhoneNumber } from '@/src/store/phoneNumberSlice';
 
 type FormData = {
   phoneNumber: string;
 };
 
 const NumberVerification = () => {
+
+  const dispatch = useDispatch()
+
   const {
     control,
     handleSubmit,
@@ -27,7 +31,7 @@ const NumberVerification = () => {
 
 
   const handleContinue = (data: FormData) => {
-    console.log('Phone Number:', data.phoneNumber);
+    dispatch(setPhoneNumber(data?.phoneNumber))
     router.replace('/(auth)/otp-verification')
   };
 

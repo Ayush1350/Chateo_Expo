@@ -1,10 +1,10 @@
 import { View, TextInput, TextInputProps, Text } from 'react-native';
 import React from 'react';
-import cn from 'clsx'
+import cn from 'clsx';
 
 interface CustomTextInputProps extends TextInputProps {
   className?: string;
-  placeholder: string;
+  placeholder?: string;
   keyboardType: TextInputProps['keyboardType'];
   value: string;
   onChangeText: (value: string) => void;
@@ -12,7 +12,7 @@ interface CustomTextInputProps extends TextInputProps {
   errors?: string;
 }
 
-const CustomTextInput: React.FC<CustomTextInputProps> = ({
+const CustomTextInput = React.forwardRef<TextInput, CustomTextInputProps>(({
   className = '',
   placeholder,
   keyboardType,
@@ -21,14 +21,15 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
   maxLength,
   errors,
   ...rest
-}) => {
+}, ref) => {
   return (
-    <View className='gap-4'>
+    <View className="gap-4">
       <TextInput
+        ref={ref} 
         className={cn(
           'h-[50px] w-[250px] border border-primary-button rounded-md text-primary-text text-[20px] pl-2',
           className
-        )}        
+        )}
         placeholder={placeholder}
         keyboardType={keyboardType}
         value={value}
@@ -36,11 +37,13 @@ const CustomTextInput: React.FC<CustomTextInputProps> = ({
         maxLength={maxLength}
         {...rest}
       />
-      <View className='h-20'>
+      <View className={errors ? 'h-20' : ''}>
         {errors && <Text className="text-red-500">{errors}</Text>}
       </View>
     </View>
   );
-};
+});
+
+CustomTextInput.displayName = 'CustomTextInput';
 
 export default CustomTextInput;
