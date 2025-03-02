@@ -1,42 +1,48 @@
-import { View, Text, Image } from 'react-native'
-import React from 'react'
-import { Tabs } from 'expo-router'
-import { HiHome } from "react-icons/hi";
+import { View, Text } from 'react-native';
+import React from 'react';
+import { Tabs } from 'expo-router';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
-
-const TabIcon = ({icon, color, name, focused}) => {
+const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <View className='items-center justify-center gap-2'>
-      <Image source ={icon} 
-      resizeMode='contain'
-      tintColor={color}
-      className='w-6 h-6'
-      />
-      <Text className={`${focused ? 'font-semibold' : 'font-normal'} text-xs`}>{name}</Text>
+    <View className="flex justify-between items-center gap-2 mt-[50%] min-w-20">
+      <Icon name={icon} size={30} color={color} />
+      <Text className={`${focused ? 'font-semibold' : 'font-normal'} text-xs`}>
+        {name}
+      </Text>
     </View>
-  )
-}
+  );
+};
+
+const tabConfig = [
+  { name: 'home', icon: 'home', title: 'Home' },
+  { name: 'create', icon: 'plus', title: 'Create' },
+  { name: 'profile', icon: 'user', title: 'Profile' },
+  { name: 'bookmark', icon: 'bookmark', title: 'Bookmark' },
+];
 
 const TabsLayout = () => {
   return (
-    <>
-      <Tabs
+    <Tabs
       screenOptions={{
-        tabBarShowLabel: false
+        tabBarShowLabel: false,
       }}
-      >
-        <Tabs.Screen name='home' 
-        options={{
-          title: 'Home',
-          headerShown: false,
-          tabBarIcon: ({ color, focused}) => (
-<TabIcon icon={<HiHome/>} color={color} name='Home' focused={focused}/>
-          )
-        }}
+    >
+      {tabConfig?.map((tab) => (
+        <Tabs.Screen
+          key={tab.name}
+          name={tab.name}
+          options={{
+            title: tab.title,
+            headerShown: false,
+            tabBarIcon: ({ color, focused }) => (
+              <TabIcon icon={tab.icon} color={color} name={tab.title} focused={focused} />
+            ),
+          }}
         />
-      </Tabs>
-    </>
-  )
-}
+      ))}
+    </Tabs>
+  );
+};
 
-export default TabsLayout
+export default TabsLayout;
