@@ -1,14 +1,26 @@
 import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
+import {
+  API_KEY,
+  APP_ID,
+  AUTH_DOMAIN,
+  MEASUREMENT_ID,
+  MESSAGING_SENDER_ID,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+} from "./constants/Constant";
+
 const firebaseConfig = {
-  apiKey: "AIzaSyAy7r4CxV09lV9bHwIc_xuFgPQtqk81G8Q",
-  authDomain: "chateo-cbcc7.firebaseapp.com",
-  projectId: "chateo-cbcc7",
-  storageBucket: "chateo-cbcc7.firebasestorage.app",
-  messagingSenderId: "361691169928",
-  appId: "1:361691169928:web:a7eef8527ae2aedb024b3d",
-  measurementId: "G-D30YGVKS3E",
+  apiKey: API_KEY,
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
+  messagingSenderId: MESSAGING_SENDER_ID,
+  appId: APP_ID,
+  measurementId: MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const auth = getAuth(app);
+
+export { auth };
