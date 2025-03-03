@@ -1,22 +1,22 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface PhoneNumberState {
   phoneNumber: string;
 }
 
 const initialState: PhoneNumberState = {
-  phoneNumber: '',
+  phoneNumber: "",
 };
 
 const phoneNumberSlice = createSlice({
-  name: 'phoneNumber', 
-  initialState,         
+  name: "phoneNumber",
+  initialState,
   reducers: {
     setPhoneNumber: (state, action: PayloadAction<string>) => {
-      state.phoneNumber = action.payload; 
+      state.phoneNumber = action.payload;
     },
     clearPhoneNumber: (state) => {
-      state.phoneNumber = '';  
+      state.phoneNumber = "";
     },
   },
 });

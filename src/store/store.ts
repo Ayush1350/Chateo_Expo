@@ -1,5 +1,5 @@
-import { configureStore } from '@reduxjs/toolkit';
-import phoneNumberReducer from './phoneNumberSlice';
+import { configureStore } from "@reduxjs/toolkit";
+import phoneNumberReducer from "./phoneNumberSlice";
 
 export const store = configureStore({
   reducer: {
