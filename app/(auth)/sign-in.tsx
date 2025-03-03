@@ -1,17 +1,43 @@
-import { View, Text, TextInput, TouchableOpacity, Image } from "react-native";
+import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import React, { useState } from "react";
 import { Stack, useRouter } from "expo-router";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomButton from "@/components/ui/CustomButton";
+import Toast from "react-native-toast-message";
+import { auth } from "@/firebase-config";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 const SignIn = () => {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSignIn = () => {
-    console.log("Email:", email, "Password:", password);
-    // Add authentication logic here
+  const handleSignIn = async () => {
+    if (!email || !password) {
+      Toast.show({
+        type: "error",
+        text1: "Login Failed",
+        text2: "Please enter both email and password.",
+      });
+      return;
+    }
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      Toast.show({
+        type: "success",
+        text1: "Success",
+        text2: "Logged in successfully!",
+      });
+
+      setTimeout(() => router.replace("/home"), 1000);
+    } catch (error: any) {
+      Toast.show({
+        type: "error",
+        text1: "Login Failed",
+        text2: error.message,
+      });
+    }
   };
 
   return (
@@ -29,6 +55,7 @@ const SignIn = () => {
         <Text className="text-primary-text text-lg text-center opacity-75">
           Log in to your account to continue
         </Text>
+
         <View className="w-full gap-4">
           <TextInput
             className="w-full p-4 border border-primary-button rounded-xl text-primary-text bg-secondary-background"
@@ -49,6 +76,7 @@ const SignIn = () => {
             placeholderTextColor="#A0A0A0"
           />
         </View>
+
         <TouchableOpacity
           onPress={() => console.log("Forgot Password?")}
           className="w-full items-end"
@@ -68,7 +96,6 @@ const SignIn = () => {
           <Text className="text-primary-text text-base">
             Don't have an account?
           </Text>
-
           <TouchableOpacity onPress={() => router.push("/sign-up")}>
             <Text className="text-primary-button text-base font-semibold">
               Sign Up
@@ -76,6 +103,8 @@ const SignIn = () => {
           </TouchableOpacity>
         </View>
       </View>
+
+      {/* <Toast /> */}
     </SafeAreaView>
   );
 };

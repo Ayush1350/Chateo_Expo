@@ -5,6 +5,7 @@ import { router, Stack } from "expo-router";
 import "./global.css";
 import images from "@/constants/Images";
 import CustomButton from "@/components/ui/CustomButton";
+import Toast from "react-native-toast-message";
 
 const Index = () => {
   return (
@@ -28,11 +29,12 @@ const Index = () => {
             </Text>
 
             <CustomButton
-              onPress={() => router.push("/(auth)/sign-in")}
+              onPress={() => router.push("/sign-in")}
               placeholder="Start Messaging"
             />
           </View>
         </View>
+        <Toast />
       </SafeAreaView>
     </>
   );
