@@ -28,7 +28,7 @@ const Index = () => {
             </Text>
 
             <CustomButton
-              onPress={() => router.push("/(auth)/number-verification")}
+              onPress={() => router.push("/(auth)/sign-in")}
               placeholder="Start Messaging"
             />
           </View>
